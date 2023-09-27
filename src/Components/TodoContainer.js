@@ -25,17 +25,16 @@ class TodoContainer extends React.Component {
       },
     ],
   };
-  handleSubmit = e => {
-    e.preventDefault()
-    if (this.state.title.trim()) {
-      this.props.addTodoProps(this.state.title)
-      this.setState({
-        title: "",
+  handleChange = id => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
       })
-    } else {
-      alert("Please write item")
-    }
-  }
+    });
+  };
   delTodo = id => {
     this.setState({
       todos: [
@@ -47,7 +46,7 @@ class TodoContainer extends React.Component {
   };
   addTodoItem = title => {
     const newTodo = {
-      id: 4,
+      id: uuidv4(),
       title: title,
       completed: false
     };
